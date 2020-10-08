@@ -19,6 +19,11 @@ namespace Task1
             map = new Map(min_width, max_width, min_height, max_height, num_enemies,num_gold);
         }
 
+        public GameEngine()
+        {
+            map = this.loadGame();
+        }
+
         public Tile[,] getMapView()
         {
             return map.getMap();
@@ -231,7 +236,7 @@ namespace Task1
         {
             try
             {
-                FileStream output_file = new FileStream("gamesave.dat", FileMode.Create, FileAccess.Write);
+                FileStream output_file = new FileStream("gamesave.dat", FileMode.Create, FileAccess.ReadWrite);
                 BinaryFormatter bf = new BinaryFormatter();
                 bf.Serialize(output_file, map);
 
@@ -245,6 +250,26 @@ namespace Task1
             }
             
         }
+
+        public Map loadGame()
+        {
+            try
+            {
+                FileStream input_file = new FileStream("gamesave.dat", FileMode.Open, FileAccess.Read);
+                BinaryFormatter bf = new BinaryFormatter();
+                Map m = (Map)bf.Deserialize(input_file);
+
+                input_file.Close();
+
+                return m;
+            }catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+        }
+
+       
 
     }
 }

@@ -27,6 +27,15 @@ namespace Task1
             redraw();
         }
 
+        public GamePlay()
+        {
+            InitializeComponent();
+            ge = new GameEngine();
+            width = ge.getWidth();
+            height = ge.getHeight();
+            redraw();
+        }
+
         public void setCaller(Form1 caller)
         {
             this.caller = caller;

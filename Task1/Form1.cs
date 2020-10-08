@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,7 +52,23 @@ namespace Task1
 
         private void button1_Click(object sender, EventArgs e)
         {
+            try
+            {
+                FileStream save_file = new FileStream("gamesave.dat", FileMode.Open, FileAccess.Read);
+                save_file.Close();
 
+                GamePlay gp = new GamePlay();
+                gp.setCaller(this);
+                gp.Show();
+                this.Hide();
+            }
+            catch(Exception exc)
+            {
+                errorLabel.Text = "No saved game found";
+            }
+    
         }
+
+        
     }
 }

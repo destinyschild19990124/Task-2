@@ -141,7 +141,7 @@
             // 
             this.errorLabel.AutoSize = true;
             this.errorLabel.ForeColor = System.Drawing.Color.Red;
-            this.errorLabel.Location = new System.Drawing.Point(263, 237);
+            this.errorLabel.Location = new System.Drawing.Point(63, 372);
             this.errorLabel.Name = "errorLabel";
             this.errorLabel.Size = new System.Drawing.Size(0, 17);
             this.errorLabel.TabIndex = 11;
@@ -176,7 +176,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(524, 387);
+            this.ClientSize = new System.Drawing.Size(524, 411);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.goldBox);
             this.Controls.Add(this.label6);
