@@ -55,7 +55,10 @@
       <DependentUpon>GamePlay.cs</DependentUpon>
     </Compile>
     <Compile Include="Goblin.cs" />
+    <Compile Include="Gold.cs" />
     <Compile Include="Hero.cs" />
+    <Compile Include="Item.cs" />
+    <Compile Include="Mage.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Tile.cs" />
     <Compile Include="Obstacle.cs" />

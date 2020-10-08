@@ -164,12 +164,18 @@ namespace Task1
 
         private Tile[] returnVision(int x,int y)
         {
-            Tile[] vision = new Tile[4];
+            Tile[] vision = new Tile[8];
 
             vision[0] = map[y - 1, x];  //North
             vision[1] = map[y + 1, x];  //South
             vision[2] = map[y, x - 1];  //West
             vision[3] = map[y, x + 1];  //East
+
+            //Mage vision update
+            vision[4] = map[y - 1, x + 1];  //North East
+            vision[5] = map[y + 1, x + 1];  //South East
+            vision[6] = map[y + 1, x - 1];  //South West
+            vision[7] = map[y - 1, x - 1];  //North West
 
             return vision;
 

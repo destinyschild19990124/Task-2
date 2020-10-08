@@ -53,6 +53,8 @@ namespace Task1
             else if(direction == Movement.Down) { ++this.y; }
             else if(direction == Movement.Left) { --this.x; }
             else if(direction == Movement.Right) { ++this.x; }
+
+            //No movement edits required for characters that do not move
         }
 
         public abstract Movement returnMove(Movement direction = 0);
