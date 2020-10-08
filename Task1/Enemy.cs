@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Task1
 {
+    [Serializable]
     abstract class Enemy : Character
     {
         protected Random rnd = new Random();

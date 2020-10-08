@@ -38,9 +38,10 @@ namespace Task1
         {
             if (success)
             {
+                actionstatusLabel.ForeColor = Color.Green;
+
                 if (action.Substring(0, 6) == "attack")
                 {
-                    actionstatusLabel.ForeColor = Color.Green;
                     actionstatusLabel.Text = "Action successful!";
                     actionstatusLabel.Text += '\n' + meta + '\n';
                 }
@@ -198,11 +199,28 @@ namespace Task1
                 }
                 actionStatus("attack right", success, response.Substring(1));
             }
-            else if(e.KeyCode == Keys.Escape)
+            else if(e.KeyCode == Keys.Escape)       // save and exit
             {
+                ge.saveGame();
+
                 caller.Show();
                 this.Dispose();
             }
+            else if (e.KeyCode == Keys.Enter)       // save only
+            {
+                if (ge.saveGame())
+                {
+                    actionstatusLabel.ForeColor = Color.Orange;
+                    actionstatusLabel.Text = "Save successful!";
+                }
+                else
+                {
+                    actionstatusLabel.ForeColor = Color.Red;
+                    actionstatusLabel.Text = "Unable to save.";
+                }
+                
+            }
+            
         }
 
         private void GamePlay_Load(object sender, EventArgs e)

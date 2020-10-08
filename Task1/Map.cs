@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Task1
 {
+    [Serializable]
     class Map
     {
         private Random rnd = new Random();

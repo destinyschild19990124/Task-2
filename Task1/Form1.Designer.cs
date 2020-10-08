@@ -42,6 +42,7 @@
             this.errorLabel = new System.Windows.Forms.Label();
             this.goldBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // minwidthBox
@@ -126,12 +127,14 @@
             // 
             // startgameButton
             // 
-            this.startgameButton.Location = new System.Drawing.Point(147, 287);
+            this.startgameButton.BackColor = System.Drawing.Color.Green;
+            this.startgameButton.ForeColor = System.Drawing.Color.White;
+            this.startgameButton.Location = new System.Drawing.Point(293, 288);
             this.startgameButton.Name = "startgameButton";
             this.startgameButton.Size = new System.Drawing.Size(197, 71);
             this.startgameButton.TabIndex = 10;
-            this.startgameButton.Text = "Start Game";
-            this.startgameButton.UseVisualStyleBackColor = true;
+            this.startgameButton.Text = "New Game";
+            this.startgameButton.UseVisualStyleBackColor = false;
             this.startgameButton.Click += new System.EventHandler(this.startgameButton_Click);
             // 
             // errorLabel
@@ -159,11 +162,22 @@
             this.label6.TabIndex = 12;
             this.label6.Text = "Gold";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(66, 288);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(197, 71);
+            this.button1.TabIndex = 14;
+            this.button1.Text = "Load Game";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(524, 387);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.goldBox);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.errorLabel);
@@ -201,6 +215,7 @@
         private System.Windows.Forms.Label errorLabel;
         private System.Windows.Forms.TextBox goldBox;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button button1;
     }
 }
 

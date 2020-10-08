@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -223,6 +225,25 @@ namespace Task1
         public Map GetMap()
         {
             return this.map;
+        }
+
+        public Boolean saveGame()
+        {
+            try
+            {
+                FileStream output_file = new FileStream("gamesave.dat", FileMode.Create, FileAccess.Write);
+                BinaryFormatter bf = new BinaryFormatter();
+                bf.Serialize(output_file, map);
+
+                output_file.Close();
+
+                return true;
+            }catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+            
         }
 
     }

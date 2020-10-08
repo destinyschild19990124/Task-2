@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GamePlay));
             this.actionstatusLabel = new System.Windows.Forms.Label();
             this.gameviewLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -41,6 +40,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -78,9 +79,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(12, 448);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(320, 136);
+            this.label2.Size = new System.Drawing.Size(189, 68);
             this.label2.TabIndex = 3;
-            this.label2.Text = resources.GetString("label2.Text");
+            this.label2.Text = "W - move up  S - move down\r\nA - move left  D - move right\r\n\r\nSPACE - not move";
             // 
             // label3
             // 
@@ -102,7 +103,7 @@
             this.panel1.Controls.Add(this.label4);
             this.panel1.Location = new System.Drawing.Point(386, 13);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(402, 571);
+            this.panel1.Size = new System.Drawing.Size(402, 609);
             this.panel1.TabIndex = 5;
             // 
             // enemiesremainingLabel
@@ -163,11 +164,34 @@
             this.label4.TabIndex = 6;
             this.label4.Text = "Hero Stats";
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label7.Location = new System.Drawing.Point(9, 520);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(185, 102);
+            this.label7.TabIndex = 6;
+            this.label7.Text = "ESCAPE  - save and exit\r\nENTER    - save\r\n\r\n\r\n\r\n\r\n";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(9, 588);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(320, 34);
+            this.label8.TabIndex = 7;
+            this.label8.Text = "Up Arrow - attack up     Down Arrow - attack down\r\nLeft Arrow - attack left   Rig" +
+    "ht Arrow - attack right\r\n";
+            // 
             // GamePlay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 598);
+            this.ClientSize = new System.Drawing.Size(800, 639);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -200,5 +224,7 @@
         private System.Windows.Forms.Label attackingOptionsLabel;
         private System.Windows.Forms.Label herostatsLabel;
         private System.Windows.Forms.Label enemiesremainingLabel;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
     }
 }
