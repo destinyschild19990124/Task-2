@@ -35,12 +35,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.enemiesremainingLabel = new System.Windows.Forms.Label();
             this.attackingOptionsLabel = new System.Windows.Forms.Label();
             this.herostatsLabel = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.enemiesremainingLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,7 +67,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(9, 391);
+            this.label1.Location = new System.Drawing.Point(9, 418);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(68, 17);
             this.label1.TabIndex = 2;
@@ -76,7 +76,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 421);
+            this.label2.Location = new System.Drawing.Point(12, 448);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(320, 136);
             this.label2.TabIndex = 3;
@@ -102,15 +102,25 @@
             this.panel1.Controls.Add(this.label4);
             this.panel1.Location = new System.Drawing.Point(386, 13);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(402, 544);
+            this.panel1.Size = new System.Drawing.Size(402, 571);
             this.panel1.TabIndex = 5;
+            // 
+            // enemiesremainingLabel
+            // 
+            this.enemiesremainingLabel.AutoSize = true;
+            this.enemiesremainingLabel.BackColor = System.Drawing.SystemColors.Control;
+            this.enemiesremainingLabel.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.enemiesremainingLabel.Location = new System.Drawing.Point(12, 179);
+            this.enemiesremainingLabel.Name = "enemiesremainingLabel";
+            this.enemiesremainingLabel.Size = new System.Drawing.Size(0, 17);
+            this.enemiesremainingLabel.TabIndex = 12;
             // 
             // attackingOptionsLabel
             // 
             this.attackingOptionsLabel.AutoSize = true;
             this.attackingOptionsLabel.BackColor = System.Drawing.SystemColors.Control;
             this.attackingOptionsLabel.ForeColor = System.Drawing.Color.Blue;
-            this.attackingOptionsLabel.Location = new System.Drawing.Point(12, 438);
+            this.attackingOptionsLabel.Location = new System.Drawing.Point(12, 454);
             this.attackingOptionsLabel.Name = "attackingOptionsLabel";
             this.attackingOptionsLabel.Size = new System.Drawing.Size(0, 17);
             this.attackingOptionsLabel.TabIndex = 11;
@@ -127,7 +137,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(12, 129);
+            this.label6.Location = new System.Drawing.Point(12, 145);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(150, 17);
             this.label6.TabIndex = 8;
@@ -137,7 +147,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(12, 408);
+            this.label5.Location = new System.Drawing.Point(12, 424);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(136, 17);
             this.label5.TabIndex = 7;
@@ -153,21 +163,11 @@
             this.label4.TabIndex = 6;
             this.label4.Text = "Hero Stats";
             // 
-            // enemiesremainingLabel
-            // 
-            this.enemiesremainingLabel.AutoSize = true;
-            this.enemiesremainingLabel.BackColor = System.Drawing.SystemColors.Control;
-            this.enemiesremainingLabel.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.enemiesremainingLabel.Location = new System.Drawing.Point(12, 163);
-            this.enemiesremainingLabel.Name = "enemiesremainingLabel";
-            this.enemiesremainingLabel.Size = new System.Drawing.Size(0, 17);
-            this.enemiesremainingLabel.TabIndex = 12;
-            // 
             // GamePlay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 581);
+            this.ClientSize = new System.Drawing.Size(800, 598);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -177,6 +177,7 @@
             this.Name = "GamePlay";
             this.Text = "Fight!";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GamePlay_FormClosed);
+            this.Load += new System.EventHandler(this.GamePlay_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GamePlay_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

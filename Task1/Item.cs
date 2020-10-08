@@ -8,14 +8,25 @@ namespace Task1
 {
     abstract class Item : Tile
     {
-        public Item(int x,int y) : base(x, y)
+
+        private Boolean picked_up = false;
+
+        public Item(int x,int y,TileType type) : base(x, y,type)
         {
 
         }
 
         public abstract override string ToString();
 
+        public void setPickedUp(Boolean picked_up)
+        {
+            this.picked_up = picked_up;
+        }
 
+        public Boolean isPickedUp()
+        {
+            return this.picked_up;
+        }
 
 
     }

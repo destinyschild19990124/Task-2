@@ -12,7 +12,7 @@ namespace Task1
         private Random rnd = new Random();
         private int num_gold;
 
-        public Gold(int x,int y) : base(x, y)
+        public Gold(int x,int y) : base(x, y,TileType.Gold)
         {
             num_gold = rnd.Next(1, 6);
         }
@@ -26,6 +26,8 @@ namespace Task1
         {
             return num_gold;
         }
+
+        
 
     }
 }

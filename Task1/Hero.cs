@@ -18,7 +18,8 @@ namespace Task1
         public override Movement returnMove(Movement dir)
         {
 
-            if(this.vision[(int)dir] is EmptyTile)
+            //Editted to accomodate for picking up items
+            if(this.vision[(int)dir] is EmptyTile || this.vision[(int)dir] is Item)
             {
                 return dir;
             }
@@ -31,7 +32,7 @@ namespace Task1
 
         public override string ToString()
         {
-            return "Player Stats:" + "\nHP: " + this.hp + "\nDamage: " + damage + "\n[" + this.x + "," + this.y + "]";
+            return "Player Stats:" + "\nHP: " + this.hp + "\nDamage: " + damage + "\nGold: " + gold_purse + "\n[" + this.x + "," + this.y + "]";
         }
     }
 }

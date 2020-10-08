@@ -40,6 +40,8 @@
             this.enemiesBox = new System.Windows.Forms.TextBox();
             this.startgameButton = new System.Windows.Forms.Button();
             this.errorLabel = new System.Windows.Forms.Label();
+            this.goldBox = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // minwidthBox
@@ -141,11 +143,29 @@
             this.errorLabel.Size = new System.Drawing.Size(0, 17);
             this.errorLabel.TabIndex = 11;
             // 
+            // goldBox
+            // 
+            this.goldBox.Location = new System.Drawing.Point(350, 235);
+            this.goldBox.Name = "goldBox";
+            this.goldBox.Size = new System.Drawing.Size(140, 22);
+            this.goldBox.TabIndex = 13;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(306, 238);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(38, 17);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "Gold";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(524, 387);
+            this.Controls.Add(this.goldBox);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.errorLabel);
             this.Controls.Add(this.startgameButton);
             this.Controls.Add(this.enemiesBox);
@@ -179,6 +199,8 @@
         private System.Windows.Forms.TextBox enemiesBox;
         private System.Windows.Forms.Button startgameButton;
         private System.Windows.Forms.Label errorLabel;
+        private System.Windows.Forms.TextBox goldBox;
+        private System.Windows.Forms.Label label6;
     }
 }
 

@@ -18,6 +18,23 @@ namespace Task1
         protected int max_hp;
         protected int damage;
         protected Tile[] vision;
+        protected int gold_purse = 0;
+        protected Boolean lock_vision = false;  //Disable vision from being changed for the purpose of looping through enemies
+
+        public void lockVision()
+        {
+            this.lock_vision = true;
+        }
+
+        public void unlockVision()
+        {
+            this.lock_vision = false;
+        }
+
+        public Boolean isVisionLocked()
+        {
+            return this.lock_vision;
+        }
 
         public Character(int x, int y,Tile.TileType type) : base(x, y, type) { }
       
@@ -57,6 +74,14 @@ namespace Task1
             //No movement edits required for characters that do not move
         }
 
+        public void pickUp(Item i)
+        {
+            if(i is Gold)
+            {
+                this.gold_purse += ((Gold)i).getGold();
+            }
+        }
+
         public abstract Movement returnMove(Movement direction = 0);
 
         public abstract override string ToString();
@@ -72,7 +97,7 @@ namespace Task1
 
         public int getHp()
         {
-            return this.hp;
+            return (this.hp>=0?this.hp:0);
         }
 
         public void setMaxHp(int max_hp)

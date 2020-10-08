@@ -13,10 +13,12 @@ namespace Task1
         private Tile[,] map;
         private Hero hero;
         private Enemy[] enemies;
+        private Item[] items;
         private int width;
         private int height;
 
-        public Map(int min_width,int max_width,int min_height,int max_height,int num_enemies)
+
+        public Map(int min_width,int max_width,int min_height,int max_height,int num_enemies,int num_gold)
         {
             this.width = rnd.Next(min_width, max_width + 1);
             this.height = rnd.Next(min_height, max_height + 1);
@@ -31,17 +33,17 @@ namespace Task1
             }
             this.enemies = new Enemy[num_enemies];
 
-            generateEmptyMap();
-            this.hero = (Hero)create(Tile.TileType.Hero);
-            map[hero.getY(), hero.getX()] = hero;
-
-            for (int i = 0; i < enemies.Length; ++i)
+            //Check that the number of gold spawned does not exceed the limit
+            int max_num_gold = ((width - 2) * (height - 2)) - 1 - this.enemies.Length;
+            if (num_gold > max_num_gold)
             {
-                enemies[i] = (Goblin)create(Tile.TileType.Enemy);
-                map[enemies[i].getY(),enemies[i].getX()] = enemies[i];
+                num_gold = max_num_gold;
             }
+            this.items = new Item[num_gold];
 
-            updateVision();
+            generateEmptyMap();
+            populateEmptyMap();
+            
         }
 
         private void generateEmptyMap()
@@ -66,7 +68,37 @@ namespace Task1
             }
         }
 
-        private Tile create(Tile.TileType type)
+        private void populateEmptyMap()
+        {
+            this.hero = (Hero)create(Tile.TileType.Hero, 0);
+            map[hero.getY(), hero.getX()] = hero;
+
+            for (int i = 0; i < enemies.Length; ++i)
+            {
+                //0 = Goblin, 1 = Mage
+                int enemy_specification = rnd.Next(0, 2);
+
+                if (enemy_specification == 0)
+                {
+                    enemies[i] = (Goblin)create(Tile.TileType.Enemy, enemy_specification);
+                }
+                else
+                {
+                    enemies[i] = (Mage)create(Tile.TileType.Enemy, enemy_specification);
+                }
+                map[enemies[i].getY(), enemies[i].getX()] = enemies[i];
+            }
+
+            updateVision();
+
+            for (int i = 0; i < items.Length; ++i)
+            {
+                items[i] = (Gold)create(Tile.TileType.Gold, 0);
+                map[items[i].getY(), items[i].getX()] = items[i];
+            }
+        }
+
+        private Tile create(Tile.TileType type,int specification)
         {
             int[] spawn_location = getSpawnPosition();
 
@@ -76,7 +108,19 @@ namespace Task1
             }
             else if(type == Tile.TileType.Enemy)
             {
-                return new Goblin(spawn_location[1], spawn_location[0]);
+                
+                if (specification == 0)
+                {
+                    return new Goblin(spawn_location[1], spawn_location[0]);
+                }
+                else
+                {
+                    return new Mage(spawn_location[1], spawn_location[0]);
+                }
+            }
+            else if(type == Tile.TileType.Gold)
+            {
+                return new Gold(spawn_location[1], spawn_location[0]);
             }
             else
             {
@@ -87,19 +131,24 @@ namespace Task1
 
         private void updateVision()
         {
-            hero.setVision(returnVision(hero.getX(), hero.getY()));
+            if (!hero.isVisionLocked())
+            {
+                hero.setVision(returnVision(hero.getX(), hero.getY()));
+            }
 
             for (int i = 0; i < enemies.Length; ++i)
             {
-              
-                enemies[i].setVision(returnVision(enemies[i].getX(), enemies[i].getY()));
+                if (!enemies[i].isVisionLocked())
+                {
+                    enemies[i].setVision(returnVision(enemies[i].getX(), enemies[i].getY()));
+                }
             }
         }
 
-        public void removeFromMap(Tile character)
+        public void removeFromMap(Tile type)
         {
             
-            if(character.getTileType() == Tile.TileType.Enemy)
+            if(type.getTileType() == Tile.TileType.Enemy)
             {
                 Enemy[] new_list = new Enemy[enemies.Length-1];
                 int index = 0;
@@ -120,16 +169,48 @@ namespace Task1
                 enemies = new_list;
                 updateVision();
             }
+            else if(type.getTileType() == Tile.TileType.Gold)
+            {
+                Item[] new_list = new Item[items.Length - 1];
+                int index = 0;
+
+                for (int i = 0; i < items.Length; ++i)
+                {
+                    if (items[i].isPickedUp())
+                    {
+                        map[items[i].getY(), items[i].getX()] = new EmptyTile(items[i].getY(), items[i].getX());
+                    }
+                    else
+                    {
+                        new_list[index] = items[i];
+                        ++index;
+                    }
+                }
+
+                items = new_list;
+                updateVision();
+            }else if(type.getTileType() == Tile.TileType.Hero)
+            {
+                map[hero.getY(), hero.getX()] = new EmptyTile(hero.getY(),hero.getX());
+                updateVision();
+            }
         }
 
         public void updateCharaterPosition(Tile character,Character.Movement direction)
         {
             Character c = (Character)map[character.getY(), character.getX()];
             EmptyTile emp;
+            Tile at_position = null;
 
             switch (direction)
             {
                 case Character.Movement.Up:
+                    at_position = this.getItemAtPosition(character.getY() - 1, character.getX());
+                    if (c is Hero && at_position != null)
+                    {  
+                        c.pickUp((Item)at_position);
+                    }
+
                     emp = (EmptyTile)map[character.getY() - 1, character.getX()];
                     map[character.getY() - 1, character.getX()] = c;
                     map[character.getY(), character.getX()] = emp;
@@ -137,6 +218,12 @@ namespace Task1
                     emp.setY(emp.getY() + 1);
                     break;
                 case Character.Movement.Down:
+                    at_position = this.getItemAtPosition(character.getY() + 1, character.getX());
+                    if (c is Hero && at_position != null)
+                    {
+                        c.pickUp((Item)at_position);
+                    }
+
                     emp = (EmptyTile)map[character.getY() + 1, character.getX()];
                     map[character.getY() + 1, character.getX()] = c;
                     map[character.getY(), character.getX()] = emp;
@@ -144,6 +231,12 @@ namespace Task1
                     emp.setY(emp.getY() - 1);
                     break;
                 case Character.Movement.Left:
+                    at_position = this.getItemAtPosition(character.getY(), character.getX() - 1);
+                    if (c is Hero && at_position != null)
+                    {
+                        c.pickUp((Item)at_position);
+                    }
+
                     emp = (EmptyTile)map[character.getY(), character.getX()-1];
                     map[character.getY(), character.getX()-1] = c;
                     map[character.getY(), character.getX()] = emp;
@@ -151,6 +244,12 @@ namespace Task1
                     emp.setX(emp.getX() + 1);
                     break;
                 case Character.Movement.Right:
+                    at_position = this.getItemAtPosition(character.getY(), character.getX() + 1);
+                    if (c is Hero && at_position != null)
+                    {
+                        c.pickUp((Item)at_position);
+                    }
+
                     emp = (EmptyTile)map[character.getY(), character.getX()+1];
                     map[character.getY(), character.getX()+1] = c;
                     map[character.getY(), character.getX()] = emp;
@@ -160,6 +259,7 @@ namespace Task1
             }
 
             this.updateVision();
+
         }
 
         private Tile[] returnVision(int x,int y)
@@ -202,6 +302,24 @@ namespace Task1
             }
         }
 
+        public Item getItemAtPosition(int y, int x)
+        {
+            Item drop = null;
+
+            for(int i = 0; i < items.Length; ++i)
+            {
+                if(items[i].getX() == x && items[i].getY() == y)
+                {
+                    drop = items[i];
+                    drop.setPickedUp(true);
+                    this.removeFromMap(drop);
+                    break;
+                }
+            }
+
+            return drop;
+        }
+
         public void setMap(Tile[,] map)
         {
             this.map = map;
@@ -231,6 +349,17 @@ namespace Task1
         {
             return this.enemies;
         }
+
+        public void setItems(Item[] items)
+        {
+            this.items = items;
+        }
+
+        public Item[] getItems()
+        {
+            return this.items;
+        }
+
 
         public void setWidth(int width)
         {

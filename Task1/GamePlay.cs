@@ -18,10 +18,10 @@ namespace Task1
         private int width;
         private int height;
 
-        public GamePlay(int min_width, int max_width, int min_height, int max_height, int num_enemies)
+        public GamePlay(int min_width, int max_width, int min_height, int max_height, int num_enemies,int num_gold)
         {
             InitializeComponent();
-            ge = new GameEngine(min_width, max_width, min_height, max_height, num_enemies);
+            ge = new GameEngine(min_width, max_width, min_height, max_height, num_enemies,num_gold);
             width = ge.getWidth();
             height = ge.getHeight();
             redraw();
@@ -42,7 +42,15 @@ namespace Task1
                 {
                     actionstatusLabel.ForeColor = Color.Green;
                     actionstatusLabel.Text = "Action successful!";
-                    actionstatusLabel.Text += '\n' + meta;
+                    actionstatusLabel.Text += '\n' + meta + '\n';
+                }
+
+                if (ge.GetMap().getHero().getHp() <= 0)
+                {
+                    actionstatusLabel.Text += "You are now dead!";
+                }else if (ge.getDamageTaken() > 0)
+                {
+                    actionstatusLabel.Text += "You took a total of " + ge.getDamageTaken() + " DMG";
                 }
                 redraw();
             }
@@ -107,6 +115,14 @@ namespace Task1
             {
                 return 'G';
             }
+            else if (type is Mage)
+            {
+                return 'M';
+            }
+            else if (type is Gold)
+            {
+                return 'c';
+            }
             else
             {
                 return 'X';
@@ -144,7 +160,7 @@ namespace Task1
             }
             else if (e.KeyCode == Keys.Up)
             {
-                String response = ge.attackEnemy(Character.Movement.Up);
+                String response = ge.attackEnemy(ge.GetMap().getHero(), Character.Movement.Up,null);
                 Boolean success = false;
                 if (response[0] == '1')
                 {
@@ -154,7 +170,7 @@ namespace Task1
             }
             else if (e.KeyCode == Keys.Down)
             {
-                String response = ge.attackEnemy(Character.Movement.Down);
+                String response = ge.attackEnemy(ge.GetMap().getHero(), Character.Movement.Down,null);
                 Boolean success = false;
                 if (response[0] == '1')
                 {
@@ -164,7 +180,7 @@ namespace Task1
             }
             else if (e.KeyCode == Keys.Left)
             {
-                String response = ge.attackEnemy(Character.Movement.Left);
+                String response = ge.attackEnemy(ge.GetMap().getHero(), Character.Movement.Left,null);
                 Boolean success = false;
                 if (response[0] == '1')
                 {
@@ -174,7 +190,7 @@ namespace Task1
             }
             else if (e.KeyCode == Keys.Right)
             {
-                String response = ge.attackEnemy(Character.Movement.Right);
+                String response = ge.attackEnemy(ge.GetMap().getHero(),Character.Movement.Right,null);
                 Boolean success = false;
                 if (response[0] == '1')
                 {
@@ -187,6 +203,11 @@ namespace Task1
                 caller.Show();
                 this.Dispose();
             }
+        }
+
+        private void GamePlay_Load(object sender, EventArgs e)
+        {
+
         }
     }
 

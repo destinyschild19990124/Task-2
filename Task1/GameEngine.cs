@@ -10,10 +10,11 @@ namespace Task1
     {
 
         private Map map;
+        private int damage_taken;
 
-        public GameEngine(int min_width,int max_width,int min_height,int max_height,int num_enemies)
+        public GameEngine(int min_width,int max_width,int min_height,int max_height,int num_enemies,int num_gold)
         {
-            map = new Map(min_width, max_width, min_height, max_height, num_enemies);
+            map = new Map(min_width, max_width, min_height, max_height, num_enemies,num_gold);
         }
 
         public Tile[,] getMapView()
@@ -60,21 +61,32 @@ namespace Task1
         {
             string info = "";
 
-            if(map.getHero().getVision()[0] is Enemy) { info += "[UP]  " + map.getHero().getVision()[0].ToString() + "\n\n"; }
-            if(map.getHero().getVision()[1] is Enemy) { info += "[DOWN]  " + map.getHero().getVision()[1].ToString() + "\n\n"; }
-            if(map.getHero().getVision()[2] is Enemy) { info += "[LEFT]  " + map.getHero().getVision()[2].ToString() + "\n\n"; }
-            if(map.getHero().getVision()[3] is Enemy) { info += "[RIGHT]  " + map.getHero().getVision()[3].ToString() + "\n\n"; }
+            if (!map.getHero().isDead())
+            {
+                if (map.getHero().getVision()[0] is Enemy) { info += "[UP]  " + map.getHero().getVision()[0].ToString() + "\n\n"; }
+                if (map.getHero().getVision()[1] is Enemy) { info += "[DOWN]  " + map.getHero().getVision()[1].ToString() + "\n\n"; }
+                if (map.getHero().getVision()[2] is Enemy) { info += "[LEFT]  " + map.getHero().getVision()[2].ToString() + "\n\n"; }
+                if (map.getHero().getVision()[3] is Enemy) { info += "[RIGHT]  " + map.getHero().getVision()[3].ToString() + "\n\n"; }
+            }
 
             return info;
         }
 
         public Boolean movePlayer(Character.Movement dir)
         {
-            if (map.getHero().returnMove(dir) != Character.Movement.None)
+            if (!map.getHero().isDead())
             {
-                map.updateCharaterPosition(map.getHero(), dir);
-                moveEnemies();
-                return true;
+                if (map.getHero().returnMove(dir) != Character.Movement.None)
+                {
+                    map.updateCharaterPosition(map.getHero(), dir);
+                    moveEnemies();
+                    damage_taken = enemyAttacks();                           //Enemies now attack after the player attacks
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
@@ -85,6 +97,7 @@ namespace Task1
         public bool remainStill()
         {
             moveEnemies();
+            damage_taken = enemyAttacks();                           //Enemies now attack even if the player does not move
             return true;
         }
 
@@ -99,9 +112,8 @@ namespace Task1
             }
         }
 
-        public String attackEnemy(Character.Movement dir)
+        public String attackEnemy(Character h,Character.Movement dir,Tile t)
         {
-            Hero h = map.getHero();
             Tile target = new EmptyTile(0,0); // Set as an empty tile for placeholding
 
             switch (dir)
@@ -118,9 +130,13 @@ namespace Task1
                 case Character.Movement.Right:
                     target = map.getMap()[h.getY(), h.getX() + 1];
                     break;
+                default: target = t;
+                    break;
             }
 
-            if(target is Enemy)
+            //Goblins only harm heroes
+            //Mages harm the hero, goblins and other mages
+            if ((h is Hero && target is Enemy && !h.isDead()) || (h is Goblin && target is Hero) || (h is Mage && target is Character))
             {
 
                 h.attack((Character)target);
@@ -131,15 +147,30 @@ namespace Task1
                     map.removeFromMap(c_target);
                 }
 
-                moveEnemies();
 
-                if (!c_target.isDead())
+                if (h is Hero) {
+
+                    //moveEnemies();                        //Enemies no longer move after being attacked
+                    damage_taken = enemyAttacks();                         //Enemies now attack after the player attacks
+                    if (!c_target.isDead())
+                    {
+                        return "1" + c_target.ToString();   //Returning 1 infront of string indicates success
+                    }
+                    else
+                    {
+                        return "1The enemy is dead";
+                    }
+                }
+                else if(c_target is Hero)
                 {
-                    return "1" + c_target.ToString();     //Returning 1 infront of string indicates success
+                    return  "hero" + h.getDamage();
+                }else if (!c_target.isDead())
+                {
+                    return "enemy";
                 }
                 else
                 {
-                    return "1The enemy is dead";    
+                    return "";
                 }
                 
             }
@@ -149,6 +180,49 @@ namespace Task1
             }
 
             
+        }
+
+
+        
+        public int enemyAttacks()
+        {
+            Enemy[] enemies_copy = new Enemy[map.getEnemies().Length];
+            Array.Copy(map.getEnemies(),0,enemies_copy,0,map.getEnemies().Length);
+
+            int hero_damage = 0;
+
+            for(int i=0;i< enemies_copy.Length; ++i)
+            {
+                if (!enemies_copy[i].isDead())
+                {
+                    enemies_copy[i].lockVision();
+
+                    for(int j = 0; j < enemies_copy[i].getVision().Length; ++j)
+                    {
+                        string attack_status = attackEnemy(enemies_copy[i], Character.Movement.None, enemies_copy[i].getVision()[j]);
+                        if(attack_status.Length>=4 && attack_status.Substring(0,4)=="hero")
+                        {
+                            hero_damage += Convert.ToInt32(attack_status.Substring(4));
+
+                        }
+                    }
+
+                    enemies_copy[i].unlockVision();
+                    map.updateCharaterPosition(enemies_copy[i], Character.Movement.None);    //Forces the characters vision to be updated at the end of the attack
+                }
+            }
+
+            return hero_damage;
+        }
+
+        public int getDamageTaken()
+        {
+            return this.damage_taken;
+        }
+
+        public Map GetMap()
+        {
+            return this.map;
         }
 
     }
