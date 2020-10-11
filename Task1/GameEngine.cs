@@ -206,11 +206,22 @@ namespace Task1
 
                     for(int j = 0; j < enemies_copy[i].getVision().Length; ++j)
                     {
-                        string attack_status = attackEnemy(enemies_copy[i], Character.Movement.None, enemies_copy[i].getVision()[j]);
-                        if(attack_status.Length>=4 && attack_status.Substring(0,4)=="hero")
+                        if (enemies_copy[i] is Goblin && j < 4)
                         {
-                            hero_damage += Convert.ToInt32(attack_status.Substring(4));
+                            string attack_status = attackEnemy(enemies_copy[i], Character.Movement.None, enemies_copy[i].getVision()[j]);
+                            if (attack_status.Length >= 4 && attack_status.Substring(0, 4) == "hero")
+                            {
+                                hero_damage += Convert.ToInt32(attack_status.Substring(4));
 
+                            }
+                        }else if(enemies_copy[i] is Mage)
+                        {
+                            string attack_status = attackEnemy(enemies_copy[i], Character.Movement.None, enemies_copy[i].getVision()[j]);
+                            if (attack_status.Length >= 4 && attack_status.Substring(0, 4) == "hero")
+                            {
+                                hero_damage += Convert.ToInt32(attack_status.Substring(4));
+
+                            }
                         }
                     }
 

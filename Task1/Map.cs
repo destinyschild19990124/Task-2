@@ -90,13 +90,13 @@ namespace Task1
                 map[enemies[i].getY(), enemies[i].getX()] = enemies[i];
             }
 
-            updateVision();
-
             for (int i = 0; i < items.Length; ++i)
             {
                 items[i] = (Gold)create(Tile.TileType.Gold, 0);
                 map[items[i].getY(), items[i].getX()] = items[i];
             }
+
+            updateVision();
         }
 
         private Tile create(Tile.TileType type,int specification)
