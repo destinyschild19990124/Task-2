@@ -67,7 +67,7 @@ namespace Task1
             else
             {
                 actionstatusLabel.ForeColor = Color.Red;
-                actionstatusLabel.Text = "You cannot " + action;
+                actionstatusLabel.Text = "You cannot " + action + (ge.GetMap().getHero().isDead()?" [DEAD]":"");
             }
         }
 

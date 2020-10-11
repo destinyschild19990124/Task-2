@@ -33,7 +33,7 @@ namespace Task1
 
         public override string ToString()
         {
-            return "Player Stats:" + "\nHP: " + this.hp + "\nDamage: " + damage + "\nGold: " + gold_purse + "\n[" + this.x + "," + this.y + "]";
+            return "Player Stats:" + "\nHP: " + this.getHp() + "\nDamage: " + damage + "\nGold: " + gold_purse + "\n[" + this.x + "," + this.y + "]";
         }
     }
 }

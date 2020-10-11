@@ -102,28 +102,28 @@
             this.minlengthBox.Location = new System.Drawing.Point(104, 157);
             this.minlengthBox.Name = "minlengthBox";
             this.minlengthBox.Size = new System.Drawing.Size(140, 22);
-            this.minlengthBox.TabIndex = 6;
+            this.minlengthBox.TabIndex = 2;
             // 
             // maxwidthBox
             // 
             this.maxwidthBox.Location = new System.Drawing.Point(350, 67);
             this.maxwidthBox.Name = "maxwidthBox";
             this.maxwidthBox.Size = new System.Drawing.Size(140, 22);
-            this.maxwidthBox.TabIndex = 7;
+            this.maxwidthBox.TabIndex = 1;
             // 
             // maxlengthBox
             // 
             this.maxlengthBox.Location = new System.Drawing.Point(350, 157);
             this.maxlengthBox.Name = "maxlengthBox";
             this.maxlengthBox.Size = new System.Drawing.Size(140, 22);
-            this.maxlengthBox.TabIndex = 8;
+            this.maxlengthBox.TabIndex = 3;
             // 
             // enemiesBox
             // 
             this.enemiesBox.Location = new System.Drawing.Point(104, 232);
             this.enemiesBox.Name = "enemiesBox";
             this.enemiesBox.Size = new System.Drawing.Size(140, 22);
-            this.enemiesBox.TabIndex = 9;
+            this.enemiesBox.TabIndex = 4;
             // 
             // startgameButton
             // 
@@ -132,7 +132,7 @@
             this.startgameButton.Location = new System.Drawing.Point(293, 288);
             this.startgameButton.Name = "startgameButton";
             this.startgameButton.Size = new System.Drawing.Size(197, 71);
-            this.startgameButton.TabIndex = 10;
+            this.startgameButton.TabIndex = 6;
             this.startgameButton.Text = "New Game";
             this.startgameButton.UseVisualStyleBackColor = false;
             this.startgameButton.Click += new System.EventHandler(this.startgameButton_Click);
@@ -151,7 +151,7 @@
             this.goldBox.Location = new System.Drawing.Point(350, 235);
             this.goldBox.Name = "goldBox";
             this.goldBox.Size = new System.Drawing.Size(140, 22);
-            this.goldBox.TabIndex = 13;
+            this.goldBox.TabIndex = 5;
             // 
             // label6
             // 
@@ -167,7 +167,7 @@
             this.button1.Location = new System.Drawing.Point(66, 288);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(197, 71);
-            this.button1.TabIndex = 14;
+            this.button1.TabIndex = 7;
             this.button1.Text = "Load Game";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);

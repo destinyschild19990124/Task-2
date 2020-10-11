@@ -49,7 +49,7 @@
             // 
             this.actionstatusLabel.AutoSize = true;
             this.actionstatusLabel.ForeColor = System.Drawing.Color.Red;
-            this.actionstatusLabel.Location = new System.Drawing.Point(17, 342);
+            this.actionstatusLabel.Location = new System.Drawing.Point(17, 369);
             this.actionstatusLabel.Name = "actionstatusLabel";
             this.actionstatusLabel.Size = new System.Drawing.Size(0, 17);
             this.actionstatusLabel.TabIndex = 0;
